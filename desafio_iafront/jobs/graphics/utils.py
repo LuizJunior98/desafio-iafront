@@ -1,15 +1,21 @@
 import pandas as pd
+import numpy as np
 from bokeh.plotting import figure
 
 
-def plot(dataframe: pd.DataFrame, x_axis, y_axis, cluster_label, title=""):
+def plot(dataframe: pd.DataFrame, x_axis, y_axis, cluster_label, title="", graph_type="scatter"):
     clusters = [label for label in dataframe[cluster_label]]
 
     colors = [set_color(_) for _ in clusters]
 
     p = figure(title=title)
 
-    p.scatter(dataframe[x_axis].tolist(), dataframe[y_axis].tolist(), fill_color=colors)
+    if graph_type.lower().strip() == "scatter":
+        p.scatter(dataframe[x_axis].tolist(), dataframe[y_axis].tolist(), fill_color=colors)
+    else:
+        hist, edges = np.histogram(dataframe[y_axis].tolist(), density=True, bins=dataframe[x_axis].tolist())
+        p = figure()
+        p.quad(top=hist, bottom=0, left=edges[:-1], right=edges[1:], line_color=colors)
 
     return p
 
