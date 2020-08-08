@@ -1,8 +1,8 @@
 import click
-from sklearn.preprocessing import Normalizer
 
-from desafio_iafront.data.saving import save_partitioned
-from desafio_iafront.jobs.common import prepare_dataframe, transform
+from desafio_iafront.jobs.escala_pedidos.preprocessing import Preprocessing
+
+from desafio_iafront.jobs.common import prepare_dataframe
 
 
 @click.command()
@@ -16,11 +16,14 @@ def main(visitas_com_conversao, saida, data_inicial, data_final, departamentos):
 
     result = prepare_dataframe(departamentos_lista, visitas_com_conversao, data_inicial, data_final)
 
-    # Faz a escala dos valores
-    result_scaled = transform(result, Normalizer())
+    preprocessing = Preprocessing(result, saida)
 
-    # salva resultado
-    save_partitioned(result_scaled, saida, ['data', 'hora'])
+    preprocessing.normalizer()
+    preprocessing.standard_scale()
+    preprocessing.min_max_scale()
+    preprocessing.max_abs_scale()
+    preprocessing.robust_scale()
+    preprocessing.power_transformer()
 
 
 if __name__ == '__main__':
