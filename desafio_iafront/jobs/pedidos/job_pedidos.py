@@ -7,7 +7,7 @@ from desafio_iafront.jobs.pedidos.utils import create_merge_visitas_produto_part
 
 
 @click.command()
-@click.option('--pedidos', type=click.Path(exists=False))
+@click.option('--pedidos', type=click.Path(exists=True))
 @click.option('--visitas', type=click.Path(exists=True))
 @click.option('--produtos', type=click.Path(exists=True))
 @click.option('--saida', type=click.Path(exists=False, dir_okay=True, file_okay=False))
