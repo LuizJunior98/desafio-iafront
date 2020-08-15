@@ -19,6 +19,7 @@ def main(visitas_com_conversao, saida, data_inicial, data_final, departamentos, 
 
     preprocessing = Preprocessing(result, saida)
 
+    print(normalize_technical)
     if normalize_technical.lower().strip() == 'normalizer':
         preprocessing.normalizer()
     elif normalize_technical.lower().strip() == 'standard_scale':
