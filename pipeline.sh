@@ -10,21 +10,24 @@ pedidos='../dataset/pedidos'
 visitas='../dataset/visitas'
 produtos='../dataset/produtos.csv'
 saida='../desafio-iafront-result/saida'
-data_inicial='01/06/2020'
-data_final='02/06/2020'
-departamentos='alimentos,audio,musica,pet_shop,pc_gamer,pcs'
+data_inicial='08/06/2020'
+data_final='16/06/2020'
+departamentos='alimentos,audio,musica,pet_shop,pc_gamer,pcs,cama_mesa_banho'
 saida_normalizacao='../desafio-iafront-result/saida-normalizacao'
-normalize_technical='all'
+normalize_technical='normalizer'
 saida_cluster='../desafio-iafront-result/saida-cluster/kmeans'
+# shellcheck disable=SC2034
 saida_cluster_mean_shift='../desafio-iafront-result/saida-cluster/mean-shift'
+# shellcheck disable=SC2034
 saida_cluster_dbscan='../desafio-iafront-result/saida-cluster/dbscan'
+# shellcheck disable=SC2034
 saida_cluster_optical='../desafio-iafront-result/saida-cluster/optical'
+# shellcheck disable=SC2034
 saida_cluster_spectral='../desafio-iafront-result/saida-cluster/spectral'
 number_of_cluster=2
 saida_graphs='../desafio-iafront-result/saida-graphs.html'
 x_axis='convertido'
 y_axis='pet_shop'
-cluster_label='0'
 
 echo '##################'
 
@@ -58,39 +61,12 @@ echo '--------------------------' &&
 
 
 echo 'Step 3: Clustering result' &&
-echo '> Clustering kmeans' &&
 python3 ./desafio_iafront/jobs/clusters/job_kmeans.py \
   --dataset $saida_normalizacao \
   --saida $saida_cluster \
   --number_of_cluster $number_of_cluster \
   --data-inicial $data_inicial \
   --data-final $data_final &&
-echo '> Clustering mean_shift' &&
-python3 ./desafio_iafront/jobs/clusters/job_mean_shift.py \
-  --dataset $saida_normalizacao \
-  --saida $saida_cluster_mean_shift \
-  --data-inicial $data_inicial \
-  --data-final $data_final &&
-echo '> Clustering dbscan' &&
-python3 ./desafio_iafront/jobs/clusters/job_dbscan.py \
-  --dataset $saida_normalizacao \
-  --saida $saida_cluster_dbscan \
-  --data-inicial $data_inicial \
-  --data-final $data_final &&
-echo '> Clustering spectral' &&
-python3 ./desafio_iafront/jobs/clusters/job_spectral.py \
-  --dataset $saida_normalizacao \
-  --saida $saida_cluster_spectral \
-  --number_of_cluster $number_of_cluster \
-  --data-inicial $data_inicial \
-  --data-final $data_final &&
-echo '> Clustering optical' &&
-python3 ./desafio_iafront/jobs/clusters/job_optical.py \
-  --dataset $saida_normalizacao \
-  --saida $saida_cluster_optical \
-  --data-inicial $data_inicial \
-  --data-final $data_final &&
-
 echo '--------------------------' &&
 
 echo 'Step 4: Plotting graphs' &&
@@ -99,8 +75,6 @@ python3 ./desafio_iafront/jobs/graphics/job_graphics.py \
   --saida $saida_graphs \
   --x_axis $x_axis \
   --y_axis $y_axis \
-  --normalize_technical $normalize_technical \
-  --cluster_label $cluster_label \
   --data-inicial $data_inicial \
   --data-final $data_final &&
 

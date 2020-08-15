@@ -3,10 +3,8 @@ import numpy as np
 from bokeh.plotting import figure
 
 
-def plot(dataframe: pd.DataFrame, x_axis, y_axis, cluster_label, title="", graph_type="hist"):
-    clusters = [label for label in dataframe[cluster_label]]
-
-    colors = [set_color(_) for _ in clusters]
+def plot(dataframe: pd.DataFrame, x_axis, y_axis, title="", graph_type="hist"):
+    colors = [set_color(_) for _ in [0, 1, 2, 3, 4]]
     p = figure(title=title)
 
     if graph_type.lower().strip() == "scatter":

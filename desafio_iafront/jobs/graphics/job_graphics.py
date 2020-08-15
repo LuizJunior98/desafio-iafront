@@ -13,17 +13,18 @@ from desafio_iafront.jobs.common import filter_date
 @click.option('--saida', type=click.Path(exists=False, dir_okay=True, file_okay=False))
 @click.option('--x_axis')
 @click.option('--y_axis')
-@click.option('--cluster_label')
 @click.option('--data-inicial', type=click.DateTime(formats=["%d/%m/%Y"]))
 @click.option('--data-final', type=click.DateTime(formats=["%d/%m/%Y"]))
-def main(dataframe_path: str, saida: str, x_axis, y_axis, cluster_label, data_inicial, data_final):
+def main(dataframe_path: str, saida: str, x_axis, y_axis, data_inicial, data_final):
     filter_function = partial(filter_date, data_inicial=data_inicial, data_final=data_final)
     dataframe = read_partitioned_json(dataframe_path, filter_function=filter_function)
 
+    print('Configuring output graph')
     output_file(saida)
 
-    figura = plot(dataframe, x_axis, y_axis, cluster_label)
+    figura = plot(dataframe, x_axis, y_axis)
 
+    print('Saving graph')
     save(figura)
 
 
