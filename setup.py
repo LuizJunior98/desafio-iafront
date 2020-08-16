@@ -19,8 +19,11 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'prepara-pedidos=desafio_iafront.jobs.pedidos:main',
-            'cria-visitas=desafio_iafront.jobs.create_visits:main'
+            'prepara-pedidos=desafio_iafront.jobs.pedidos.job_pedidos:main',
+            'cria-visitas=desafio_iafront.jobs.create_visits:main',
+            'normalize=desafio_iafront.jobs.escala_pedidos.job_normalizacao:main',
+            'clustering=desafio_iafront.jobs.clusters.job_kmeans:main',
+            'plot=desafio_iafront.jobs.graphics.job_graphics:main',
         ]
     }
 )

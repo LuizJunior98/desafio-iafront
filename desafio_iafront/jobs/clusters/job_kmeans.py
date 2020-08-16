@@ -26,7 +26,8 @@ def main(dataset: str, number_of_cluster: int, saida: str, data_inicial, data_fi
 
     dataset['cluster_label'] = list(labels)
 
-    save_partitioned(dataset, saida, ['data', 'hora'])
+    save_partitioned(dataset, saida, ['data', 'hora', 'cluster_label'])
+    save_partitioned(dataset, saida, ['cluster_label', 'data', 'hora'])
 
 
 if __name__ == '__main__':
